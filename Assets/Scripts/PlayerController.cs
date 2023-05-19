@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpSpeed;
 
     private Rigidbody2D rb;
@@ -16,10 +17,20 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
+    private void Update()
+    {
+        Rotate();
+    }
+
     private void Jump()
     {
         // rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
         rb.velocity = Vector2.up * jumpSpeed;
+    }
+
+    private void Rotate() 
+    {
+        transform.right = rb.velocity + Vector2.right * moveSpeed;
     }
 
     private void OnJump(InputValue value)
